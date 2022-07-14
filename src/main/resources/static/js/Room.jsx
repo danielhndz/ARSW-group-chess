@@ -1,3 +1,41 @@
+class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    const horizontalAxis = ["a", "b", "c", "d", "e", "f", "g", "h"];
+    const verticalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
+    let firstBoard = [];
+    for (let j = verticalAxis.length - 1; j >= 0; j--) {
+      for (const element of horizontalAxis) {
+        const number = j + i + 2;
+        if (number % 2 === 0) {
+          firstBoard.push(
+            <div className="white-tile">
+              [{element}
+              {verticalAxis[j]}]
+            </div>
+          );
+        } else {
+          firstBoard.push(
+            <div className="black-tile">
+              [{element}
+              {verticalAxis[j]}]
+            </div>
+          );
+        }
+      }
+    }
+    this.state = { board: firstBoard };
+  }
+
+  render() {
+    return (
+      <div id="board-container">
+        <div id="board">{this.state.board}</div>
+      </div>
+    );
+  }
+}
+
 function getRoomWSURL() {
   return "ws://" + window.location.host + "/" + window.location.pathname;
 }
@@ -40,12 +78,6 @@ class RoomWS {
 
   sendUserReady() {
     this.wsocket.send("user ready");
-  }
-}
-
-class UsersTable extends React.Component {
-  constructor(props) {
-    super(props);
   }
 }
 
@@ -148,7 +180,7 @@ class Room extends React.Component {
         </div>
       );
     } else {
-      return <div>A jugar!</div>;
+      return <Board />;
     }
   }
 }

@@ -1,0 +1,32 @@
+body {
+  margin: auto;
+}
+
+#board-container {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  background-color: #202020;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(8, 75px);
+  grid-template-rows: repeat(8, 75px);
+  width: 600px;
+  height: 600px;
+  background-color: #779556;
+}
+
+#board .tile {
+  width: 75px;
+  height: 75px;
+}
+
+#board .black-tile {
+  background-color: #779556;
+}
+
+#board .white-tile {
+  background-color: #ebecd0;
+}
