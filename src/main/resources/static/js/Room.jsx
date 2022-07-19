@@ -5,19 +5,19 @@ class Board extends React.Component {
     const verticalAxis = ["1", "2", "3", "4", "5", "6", "7", "8"];
     let firstBoard = [];
     for (let j = verticalAxis.length - 1; j >= 0; j--) {
-      for (const element of horizontalAxis) {
-        const number = j + i + 2;
+      for (let i = 0; i < horizontalAxis.length; i++) {
+        let number = i + j + 2;
         if (number % 2 === 0) {
           firstBoard.push(
             <div className="white-tile">
-              [{element}
+              [{horizontalAxis[i]}
               {verticalAxis[j]}]
             </div>
           );
         } else {
           firstBoard.push(
             <div className="black-tile">
-              [{element}
+              [{horizontalAxis[i]}
               {verticalAxis[j]}]
             </div>
           );

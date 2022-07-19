@@ -1,4 +1,4 @@
-package edu.escuelaing.arsw.finalproj.groupchess.config;
+package edu.escuelaing.arsw.finalproj.groupchess.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,6 @@ public class ThymeleafConfig {
         secondaryTemplateResolver.setCharacterEncoding("UTF-8");
         secondaryTemplateResolver.setOrder(0);
         secondaryTemplateResolver.setCheckExistence(true);
-
         return secondaryTemplateResolver;
     }
 }

@@ -1,11 +1,11 @@
-package edu.escuelaing.arsw.finalproj.groupchess.config;
+package edu.escuelaing.arsw.finalproj.groupchess.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 @Configuration
-public class WebSocketConfigurator {
+public class WebSocketConfig {
 
     @Bean
     ServerEndpointExporter serverEndpointExporter() {

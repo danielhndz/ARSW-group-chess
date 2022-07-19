@@ -9,13 +9,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class App {
+public class AppStarter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppStarter.class);
     private static final String[] COMMANDS = { "shutdown", "off" };
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(App.class);
+        SpringApplication app = new SpringApplication(AppStarter.class);
         app.setDefaultProperties(Collections.singletonMap("server.port", getPort()));
         app.run(args);
 
