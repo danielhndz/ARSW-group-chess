@@ -6,7 +6,7 @@
 
 <br/>
 
-[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://nameless-coast-98812.herokuapp.com/)
+[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://secure-brook-34164.herokuapp.com/)
 
 <br/>
 
@@ -43,7 +43,7 @@ Si salió bien, debería tener un **BUILD SUCCESS** verde.
 mvn spring-boot:run
 ```
 
-Puede conectarse a la aplicación desplegada en [Heroku](https://nameless-coast-98812.herokuapp.com/)
+Puede conectarse a la aplicación desplegada en [Heroku](https://secure-brook-34164.herokuapp.com/)
 
 ## Built With
 
