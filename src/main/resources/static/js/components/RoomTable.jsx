@@ -1,44 +1,7 @@
-function getRoomsWSURL() {
-  return "ws://" + window.location.host + "/rooms";
-}
+const React = require("react");
+const { getRoomsWSURL, goToRelative, RoomListWS } = require("../utils.js");
 
-function goToRelative(url) {
-  window.open(url, "_blank");
-}
-
-class RoomsWS {
-  constructor(url, callback) {
-    this.url = url;
-    this.wsocket = new WebSocket(url);
-    this.wsocket.onopen = (evt) => this.onOpen(evt);
-    this.wsocket.onmessage = (evt) => this.onMessage(evt);
-    this.wsocket.onerror = (evt) => this.onError(evt);
-    this.callback = callback;
-  }
-
-  onOpen(evt) {
-    console.log("On onOpen", evt);
-  }
-
-  onMessage(evt) {
-    console.log("On onMesagge", evt);
-    if (evt.data != "Connection established.") {
-      this.callback(evt.data);
-    }
-  }
-
-  onError(evt) {
-    console.log("On onError", evt);
-  }
-
-  sendRoom(room) {
-    let roomJSON = JSON.stringify(room);
-    console.log("Sending : ", roomJSON);
-    this.wsocket.send(roomJSON);
-  }
-}
-
-class RoomTable extends React.Component {
+export class RoomTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,7 +14,7 @@ class RoomTable extends React.Component {
   }
 
   componentDidMount() {
-    this.webSocketChannel = new RoomsWS(getRoomsWSURL(), (rooms) => {
+    this.webSocketChannel = new RoomListWS(getRoomsWSURL(), (rooms) => {
       let roomsJSON = JSON.parse(rooms);
       console.log("On func call back", roomsJSON);
       this.setState({ rooms: roomsJSON });
@@ -124,5 +87,3 @@ class RoomTable extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<RoomTable />, document.getElementById("root"));

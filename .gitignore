@@ -82,3 +82,10 @@ nb-configuration.xml
 ## OS X
 ##############################
 .DS_Store
+
+##############################
+## Node
+##############################
+node_modules/
+package-lock.json
+src/main/resources/static/built/
