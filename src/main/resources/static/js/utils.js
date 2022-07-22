@@ -1,9 +1,17 @@
 export function getRoomWSURL() {
-  return "ws://" + window.location.host + "/" + window.location.pathname;
+  if (window.location.hostname === "localhost") {
+    return "ws://" + window.location.host + "/" + window.location.pathname;
+  } else {
+    return "wss://" + window.location.host + "/" + window.location.pathname;
+  }
 }
 
 export function getRoomsWSURL() {
-  return "ws://" + window.location.host + "/rooms";
+  if (window.location.hostname === "localhost") {
+    return "ws://" + window.location.host + "/rooms";
+  } else {
+    return "wss://" + window.location.host + "/rooms";
+  }
 }
 
 export function goToRelative(url) {
