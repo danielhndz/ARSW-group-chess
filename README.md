@@ -26,7 +26,7 @@ El proyecto es una implementación de un juego de ajedrez interactivo que permit
 Simplemente clone el repositorio:
 
 ```
-git clone https://github.com/danielhndz/ARSW-group-chess
+git clone https://github.com/danielhndz/ARSW-group-chess.git
 ```
 
 Luego compile el proyecto con maven:
