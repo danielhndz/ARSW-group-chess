@@ -15,12 +15,12 @@ body {
   grid-template-rows: repeat(8, 75px);
   width: 600px;
   height: 600px;
-  background-color: #779556;
+  background-color: slategrey;
 }
 
 #board .tile {
-  width: 75px;
-  height: 75px;
+  display: grid;
+  place-content: center;
 }
 
 #board .black-tile {

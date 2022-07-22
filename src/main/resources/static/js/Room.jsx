@@ -1,3 +1,17 @@
+class Tile extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    if (this.props.number % 2 === 0) {
+      return <div className="tile black-tile">{this.props.msg}</div>;
+    } else {
+      return <div className="tile white-tile">{this.props.msg}</div>;
+    }
+  }
+}
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -6,25 +20,17 @@ class Board extends React.Component {
     let firstBoard = [];
     for (let j = verticalAxis.length - 1; j >= 0; j--) {
       for (let i = 0; i < horizontalAxis.length; i++) {
-        let number = i + j + 2;
-        if (number % 2 === 0) {
-          firstBoard.push(
-            <div className="white-tile">
-              [{horizontalAxis[i]}
-              {verticalAxis[j]}]
-            </div>
-          );
-        } else {
-          firstBoard.push(
-            <div className="black-tile">
-              [{horizontalAxis[i]}
-              {verticalAxis[j]}]
-            </div>
-          );
-        }
+        firstBoard.push(
+          <Tile number={i + j + 2} msg={horizontalAxis[i] + verticalAxis[j]} />
+        );
       }
     }
     this.state = { board: firstBoard };
+    console.log("Tablero construído");
+  }
+
+  componentDidMount() {
+    console.log("Tablero montado");
   }
 
   render() {
