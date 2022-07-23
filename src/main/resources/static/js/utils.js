@@ -1,3 +1,10 @@
+export const tileClassName = "tile",
+  blackTileClassName = "black-" + tileClassName,
+  whiteTileClassName = "white-" + tileClassName,
+  highlightWhiteClassName = "highlight-white",
+  highlightBlackClassName = "highlight-black",
+  highlightBorderClassName = "highlight-border";
+
 export function getRoomWSURL() {
   if (window.location.hostname === "localhost") {
     return "ws://" + window.location.host + "/" + window.location.pathname;

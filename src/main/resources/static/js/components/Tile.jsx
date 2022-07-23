@@ -1,4 +1,9 @@
 const React = require("react");
+const {
+  tileClassName,
+  whiteTileClassName,
+  blackTileClassName,
+} = require("../utils.js");
 
 export class Tile extends React.Component {
   constructor(props) {
@@ -32,7 +37,12 @@ export class Tile extends React.Component {
   render() {
     let className;
     if (this.props.number % 2 === 0) {
-      className = "tile black-tile square-" + this.props.square;
+      className =
+        tileClassName +
+        " " +
+        blackTileClassName +
+        " square-" +
+        this.props.square;
       if (this.props.imageLink !== "") {
         return (
           <div
@@ -56,7 +66,12 @@ export class Tile extends React.Component {
         );
       }
     } else {
-      className = "tile white-tile square-" + this.props.square;
+      className =
+        tileClassName +
+        " " +
+        whiteTileClassName +
+        " square-" +
+        this.props.square;
       if (this.props.imageLink !== "") {
         return (
           <div

@@ -1,6 +1,12 @@
 const React = require("react");
 const { Tile } = require("./Tile.jsx");
-const { parsePiece } = require("../utils.js");
+const {
+  whiteTileClassName,
+  highlightWhiteClassName,
+  highlightBlackClassName,
+  highlightBorderClassName,
+  parsePiece,
+} = require("../utils.js");
 const { Chess } = require("chess.js");
 
 export class Board extends React.Component {
@@ -19,17 +25,17 @@ export class Board extends React.Component {
   highlightLegalMoves(square) {
     let moves = this.state.chess.moves({ square: square, verbose: true });
     let tile = document.getElementsByClassName("square-" + square).item(0);
-    if (tile.classList.contains("white-tile")) {
-      tile.classList.add("highlight-white");
+    if (tile.classList.contains(whiteTileClassName)) {
+      tile.classList.add(highlightWhiteClassName);
     } else {
-      tile.classList.add("highlight-black");
+      tile.classList.add(highlightBlackClassName);
     }
     for (const move of moves) {
       tile = document.getElementsByClassName("square-" + move.to).item(0);
-      if (tile.classList.contains("white-tile")) {
-        tile.classList.add("highlight-white");
+      if (tile.classList.contains(whiteTileClassName)) {
+        tile.classList.add(highlightWhiteClassName);
       } else {
-        tile.classList.add("highlight-black");
+        tile.classList.add(highlightBlackClassName);
       }
     }
   }
@@ -37,17 +43,17 @@ export class Board extends React.Component {
   hideLegalMoves(square) {
     let moves = this.state.chess.moves({ square: square, verbose: true });
     let tile = document.getElementsByClassName("square-" + square).item(0);
-    if (tile.classList.contains("highlight-white")) {
-      tile.classList.remove("highlight-white");
+    if (tile.classList.contains(highlightWhiteClassName)) {
+      tile.classList.remove(highlightWhiteClassName);
     } else {
-      tile.classList.remove("highlight-black");
+      tile.classList.remove(highlightBlackClassName);
     }
     for (const move of moves) {
       tile = document.getElementsByClassName("square-" + move.to).item(0);
-      if (tile.classList.contains("highlight-white")) {
-        tile.classList.remove("highlight-white");
+      if (tile.classList.contains(highlightWhiteClassName)) {
+        tile.classList.remove(highlightWhiteClassName);
       } else {
-        tile.classList.remove("highlight-black");
+        tile.classList.remove(highlightBlackClassName);
       }
     }
   }
@@ -56,24 +62,19 @@ export class Board extends React.Component {
     let tile;
     if (this.state.move.from === "") {
       tile = document.getElementsByClassName("square-" + square).item(0);
-      tile.classList.add("highlight-border");
+      tile.classList.add(highlightBorderClassName);
       this.setState({ move: { from: square } });
     } else {
       if (this.state.move.from === square) {
-        tile = document.getElementsByClassName("square-" + square).item(0);
-        if (tile.classList.contains("highlight-border")) {
-          tile.classList.remove("highlight-border");
-          this.setState({ move: { from: "" } });
-        }
+        this.removeClassFromSquare(square, highlightBorderClassName);
+        this.setState({ move: { from: "" } });
       } else {
-        tile = document
-          .getElementsByClassName("square-" + this.state.move.from)
-          .item(0);
-        if (tile.classList.contains("highlight-border")) {
-          tile.classList.remove("highlight-border");
-        }
+        this.removeClassFromSquare(
+          this.state.move.from,
+          highlightBorderClassName
+        );
         tile = document.getElementsByClassName("square-" + square).item(0);
-        tile.classList.add("highlight-border");
+        tile.classList.add(highlightBorderClassName);
         this.setState({ move: { from: square } });
       }
     }
@@ -86,6 +87,17 @@ export class Board extends React.Component {
       this.state.chess.move({ from: this.state.move.from, to: square });
       console.log("new board\n", this.state.chess.ascii());
       this.props.webSocketChannel.sendBoard(this.state.chess.fen());
+      this.removeClassFromSquare(
+        this.state.move.from,
+        highlightBorderClassName
+      );
+    }
+  }
+
+  removeClassFromSquare(square, className) {
+    let tile = document.getElementsByClassName("square-" + square).item(0);
+    if (tile.classList.contains(className)) {
+      tile.classList.remove(className);
     }
   }
 
