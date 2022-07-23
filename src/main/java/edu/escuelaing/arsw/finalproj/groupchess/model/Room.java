@@ -4,6 +4,12 @@ public class Room {
 
     private String name;
     private int players;
+    private String fen;
+    private static final String FEN_START = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+    public Room() {
+        this.fen = FEN_START;
+    }
 
     public String getName() {
         return name;
@@ -21,9 +27,17 @@ public class Room {
         this.players = players;
     }
 
+    public String getFen() {
+        return fen;
+    }
+
+    public void setFen(String fen) {
+        this.fen = fen;
+    }
+
     @Override
     public String toString() {
-        return "Room [name=" + name + ", players=" + players + "]";
+        return "Room [fen=" + fen + ", name=" + name + ", players=" + players + "]";
     }
 
 }

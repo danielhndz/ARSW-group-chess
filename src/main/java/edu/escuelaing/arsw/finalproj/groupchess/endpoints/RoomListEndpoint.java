@@ -23,9 +23,9 @@ import edu.escuelaing.arsw.finalproj.groupchess.model.Room;
 
 @Component
 @ServerEndpoint("/rooms")
-public class RoomsEndpoint {
+public class RoomListEndpoint {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RoomsEndpoint.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoomListEndpoint.class);
     private static Queue<Session> queue = new ConcurrentLinkedDeque<>();
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -63,6 +63,11 @@ public class RoomsEndpoint {
     @OnClose
     public static void onClose(Session session) {
         queue.remove(session);
+        try {
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         LOGGER.info("Connection closed.");
     }
 

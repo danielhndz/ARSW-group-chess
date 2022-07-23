@@ -1,13 +1,14 @@
 const React = require("react");
 const { Board } = require("./Board.jsx");
 const { RoomWS, getRoomWSURL } = require("../utils");
+const { Chess } = require("chess.js");
 
 export class Room extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       ready: false,
-      room: { players: 0 },
+      room: { name: "", players: 0, fen: "" },
       readyUsers: {},
       sessionId: 0,
     };
@@ -20,6 +21,7 @@ export class Room extends React.Component {
         let roomJSON = JSON.parse(room);
         console.log("On room func call back", roomJSON);
         this.setState({ room: roomJSON });
+        console.log(new Chess(this.state.room.fen).ascii());
       },
       (readyUsers) => {
         let readyUsersJSON = JSON.parse(readyUsers);
@@ -41,6 +43,7 @@ export class Room extends React.Component {
   }
 
   render() {
+    console.log("render");
     if (!this.state.ready) {
       return (
         <div>
@@ -101,7 +104,13 @@ export class Room extends React.Component {
         </div>
       );
     } else {
-      return <Board />;
+      console.log(this.state.room.fen);
+      return (
+        <Board
+          board={this.state.room.fen}
+          webSocketChannel={this.webSocketChannel}
+        />
+      );
     }
   }
 }

@@ -44,7 +44,7 @@ public class RoomEndPoint {
             room.setPlayers(room.getPlayers() + 1);
             sendRoom();
             sendReadyUsers();
-            RoomsEndpoint.sendRooms();
+            RoomListEndpoint.sendRooms();
         }
         try {
             session.getBasicRemote().sendText("Connection established.");
@@ -54,12 +54,20 @@ public class RoomEndPoint {
         }
     }
 
+    @SuppressWarnings({
+            "java:S2629",
+            "java:S1192"
+    })
     @OnMessage
     public static void onMessage(String msg, Session session) {
         LOGGER.info("Message received: \n\t{}. \n\tFrom session: \n\t{}", msg, session.getId());
         if (msg.equals("user ready")) {
             readyUsers.put(session.getId(), true);
             sendReadyUsers();
+        } else if (msg.startsWith("board ")) {
+            LOGGER.info("Board received: \n\t{}", msg);
+            room.setFen(msg.replaceFirst("board ", ""));
+            sendBoard();
         }
     }
 
@@ -67,10 +75,17 @@ public class RoomEndPoint {
     public static void onClose(Session session) {
         users.remove(session.getId());
         readyUsers.remove(session.getId());
-        room.setPlayers(room.getPlayers() - 1);
+        if (room.getPlayers() > 0) {
+            room.setPlayers(room.getPlayers() - 1);
+        }
         sendRoom();
         sendReadyUsers();
-        RoomsEndpoint.sendRooms();
+        RoomListEndpoint.sendRooms();
+        try {
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         LOGGER.info("Connection closed.");
     }
 
@@ -81,7 +96,7 @@ public class RoomEndPoint {
         room.setPlayers(room.getPlayers() - 1);
         sendRoom();
         sendReadyUsers();
-        RoomsEndpoint.sendRooms();
+        RoomListEndpoint.sendRooms();
         LOGGER.info(t.getMessage());
         LOGGER.info("Connection error.");
     }
@@ -106,6 +121,17 @@ public class RoomEndPoint {
             for (Session session : users.values()) {
                 LOGGER.info("\n\tSending room : \n\t{}", roomJSON);
                 session.getBasicRemote().sendText("room " + roomJSON);
+            }
+        } catch (IOException e) {
+            LOGGER.debug(e.getLocalizedMessage(), e);
+        }
+    }
+
+    private static void sendBoard() {
+        try {
+            for (Session session : users.values()) {
+                LOGGER.info("\n\tSending board : \n\t{}", room.getFen());
+                session.getBasicRemote().sendText("board " + room.getFen());
             }
         } catch (IOException e) {
             LOGGER.debug(e.getLocalizedMessage(), e);

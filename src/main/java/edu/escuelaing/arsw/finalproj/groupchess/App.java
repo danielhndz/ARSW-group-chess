@@ -8,11 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import edu.escuelaing.arsw.finalproj.groupchess.cache.RoomsCache;
+
 @SpringBootApplication
 public class App {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-    private static final String[] COMMANDS = { "shutdown", "off" };
+    private static final String[] COMMANDS = { "shutdown", "off", "clear" };
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(App.class);
@@ -28,6 +30,9 @@ public class App {
                 for (String c : COMMANDS) {
                     LOGGER.info(c);
                 }
+            } else if (msg.equalsIgnoreCase("clear")) {
+                RoomsCache.getRooms().clear();
+                LOGGER.info("clearing rooms - size: {}", RoomsCache.getRooms().size());
             } else if (msg.equalsIgnoreCase("shutdown") || msg.equalsIgnoreCase("off")) {
                 System.exit(0);
             }

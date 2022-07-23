@@ -1,5 +1,5 @@
 const React = require("react");
-const { getRoomsWSURL, goToRelative, RoomListWS } = require("../utils.js");
+const { getRoomListWSURL, goToRelative, RoomListWS } = require("../utils.js");
 
 export class RoomTable extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export class RoomTable extends React.Component {
   }
 
   componentDidMount() {
-    this.webSocketChannel = new RoomListWS(getRoomsWSURL(), (rooms) => {
+    this.webSocketChannel = new RoomListWS(getRoomListWSURL(), (rooms) => {
       let roomsJSON = JSON.parse(rooms);
       console.log("On func call back", roomsJSON);
       this.setState({ rooms: roomsJSON });

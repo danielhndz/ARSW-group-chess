@@ -6,7 +6,7 @@ export function getRoomWSURL() {
   }
 }
 
-export function getRoomsWSURL() {
+export function getRoomListWSURL() {
   if (window.location.hostname === "localhost") {
     return "ws://" + window.location.host + "/rooms";
   } else {
@@ -16,6 +16,39 @@ export function getRoomsWSURL() {
 
 export function goToRelative(url) {
   window.open(url, "_blank");
+}
+
+export function parsePiece(tile) {
+  let path = "../../image/assets/";
+  try {
+    switch (tile.type.toLowerCase()) {
+      case "r":
+        path += "rook";
+        break;
+      case "n":
+        path += "knight";
+        break;
+      case "b":
+        path += "bishop";
+        break;
+      case "q":
+        path += "queen";
+        break;
+      case "k":
+        path += "king";
+        break;
+      case "p":
+        path += "pawn";
+        break;
+      default:
+        return "";
+    }
+    path += "_" + tile.color + ".png";
+  } catch (error) {
+    console.log(error);
+    return "";
+  }
+  return path;
 }
 
 export class RoomWS {
@@ -28,6 +61,10 @@ export class RoomWS {
     this.roomCallback = roomCallback;
     this.readyUsersCallback = readyUsersCallback;
     this.sessionIdCallback = sessionIdCallback;
+    this.boardCallback = (board) => {
+      console.log("On boardCallback()");
+      console.log("Updated board : \n", board);
+    };
   }
 
   onOpen(evt) {
@@ -46,6 +83,9 @@ export class RoomWS {
       } else if (evt.data.startsWith("session id ")) {
         console.log("On onMessage - session id", evt.data);
         this.sessionIdCallback(evt.data.substring(11));
+      } else if (evt.data.startsWith("board ")) {
+        console.log("On onMessage - board", evt.data);
+        this.boardCallback(evt.data.substring(6));
       }
     }
   }
@@ -56,6 +96,15 @@ export class RoomWS {
 
   sendUserReady() {
     this.wsocket.send("user ready");
+  }
+
+  sendBoard(board) {
+    console.log("Sending : ", board);
+    this.wsocket.send("board " + board);
+  }
+
+  setBoardCallback(callback) {
+    this.boardCallback = callback;
   }
 }
 
