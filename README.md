@@ -58,6 +58,34 @@ Puede conectarse a la aplicación desplegada en [Heroku](https://secure-brook-34
 
 ### Class Diagram
 
+Diagrama del paquete principal del proyecto
+
+![](../media/pkg_groupchess.png?raw=true)
+
+Diagrama del paquete cache del proyecto
+
+![](../media/pkg_cache.png?raw=true)
+
+Diagrama del paquete configs del proyecto
+
+![](../media/pkg_configs.png?raw=true)
+
+Diagrama del paquete controller del proyecto
+
+![](../media/pkg_controller.png?raw=true)
+
+Diagrama del paquete endpoints del proyecto
+
+![](../media/pkg_endpoints.png?raw=true)
+
+Diagrama del paquete model del proyecto
+
+![](../media/pkg_model.png?raw=true)
+
+Diagrama del paquete utils del proyecto
+
+![](../media/pkg_utils.png?raw=true)
+
 ## Authors
 
 - **Daniel Hernández** - _Initial work_ - [danielhndz](https://github.com/danielhndz)
