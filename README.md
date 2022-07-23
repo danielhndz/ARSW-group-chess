@@ -45,7 +45,7 @@ mvn spring-boot:run
 
 Puede conectarse a la aplicación desplegada en [Heroku](https://secure-brook-34164.herokuapp.com/)
 
-Para ilustrar la aplicación se recrea una partida con dos instancias de un browser en modo incógnito, se puede notar que al pasar el mouse por encima de una ficha, se alumbran las posibles casillas para mover dicha ficha, al dar click en una ficha, se borde su casilla ilustrándo que la ficha se encuentra seleccionada y se puede mover dando click en una casilla libre.
+Para ilustrar la aplicación se recrea una partida con dos instancias de un browser en modo incógnito, se puede notar que al pasar el mouse por encima de una ficha, se alumbran las posibles casillas para mover dicha ficha, al dar click en una ficha, se resalta el borde de su casilla ilustrándo que la ficha se encuentra seleccionada y se puede mover dando click en una casilla libre.
 
 ![](../media/demo.gif?raw=true)
 
@@ -70,7 +70,7 @@ Para ilustrar la aplicación se recrea una partida con dos instancias de un brow
 
 ![](../media/pkg_groupchess.png?raw=true)
 
-Los nombres de los paquetes intentar ser representativos en términos de la funcionalidad de que está implementada en dicho paquete. La clase [App](/src/main/java/edu/escuelaing/arsw/finalproj/groupchess/App.java) arranca el proyecto.
+Los nombres de los paquetes intentar ser representativos en términos de la funcionalidad que está implementada en dicho paquete. La clase [App](/src/main/java/edu/escuelaing/arsw/finalproj/groupchess/App.java) arranca el proyecto.
 
 - [Paquete cache](/src/main/java/edu/escuelaing/arsw/finalproj/groupchess/cache/)
 
@@ -134,7 +134,7 @@ Dado que se usa React para construir la interfaz de la aplicación, y dado que l
 
 ![](../media/pkg_components.png?raw=true)
 
-[App.jsx](/src/main/resources/static/js/components/App.jsx) simplemente es componente `root` de la aplicación.
+[App.jsx](/src/main/resources/static/js/components/App.jsx) simplemente es el componente `root` de la aplicación.
 
 [RoomTable.jsx](/src/main/resources/static/js/components/RoomTable.jsx) es el componente encargado de la visualización de las salas.
 
